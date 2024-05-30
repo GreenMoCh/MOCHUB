@@ -3,7 +3,7 @@ const router = express.Router();
 const mysql = require('mysql2');
 const session = require('express-session');
 
-// MySQL connection setup
+//Database connection
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -16,51 +16,46 @@ const db = mysql.createConnection({
 });
 
 db.connect((err) => {
-    if (err) {
-        throw err;
-    }
-    console.log('MySQL connected in loginController...');
+    if (err) throw err;
+    console.log('Connected to loginController...');
 });
 
-// Use session middleware
+// Middleware to initialize sessions
 router.use(session({
-    secret: 'ZWm/vKsV/Vpuqt1XU6Y+XowcaB/ZnWdOWRNQFvFLS1M=',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false
 }));
 
+// Login route
 router.post('/', (req, res) => {
-    const { loginName, loginPassword } = req.body;
+    const { email, password } = req.body;
 
-    // Check if username/email and password match in database
-    const query = 'SELECT * FROM users WHERE username = ? OR email = ?';
-    db.query(query, [loginName, loginName], (err, results) => {
+    if (!email || !password) {
+        return res.json({ message: 'Email and password are required' });
+    }
+
+    const query = 'SELECT * FROM users WHERE email = ?';
+    db.query(query, [email], (err, results) => {
         if (err) {
-            return res.status(500).send('Server Error');
+            return res.json({ message: 'Server error' });
         }
 
         if (results.length === 0) {
-            return res.status(401).send('Invalid username/email or password');
+            return res.json({ message: 'User not found' });
         }
 
         const user = results[0];
-        if (user.password !== loginPassword) {
-            return res.status(401).send('Invalid username/email or password');
+        if (user.password !== password) {
+            return res.json({ message: 'Invalid password' });
         }
 
+        // Store user ID in session
         req.session.userId = user.id;
-        res.redirect('C:\Users\HP\Desktop\MOCHUB\views\dashboard\index.html');
+
+        // Redirect to dashboard
+        res.redirect('/dashboard');
     });
 });
-
-// Middleware to protect dashbord route
-function isAuth(req, res, next) {
-    if (req.session.userId) {
-        return next;
-    } else {
-        res.redirect('/login');
-    }
-}
 
 module.exports = router;

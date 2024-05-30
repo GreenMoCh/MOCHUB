@@ -19,7 +19,7 @@ db.connect((err) => {
     if (err) {
         throw (err);
     }
-    console.log('MySQL connected in registerController...');
+    console.log('Connected in registerController...');
 });
 
 // POST request handler for registration

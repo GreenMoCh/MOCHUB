@@ -2,152 +2,112 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>login</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <!-- Favicons -->
-  <link href="/assets/img/favicon.png" rel="icon">
-  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <title>MOCHUB | Login</title>
+    <!-- Favicons -->
+  <link href="/assets/img/favicon.jpeg" rel="icon">
+  <link href="/assets/img/favicon.jpeg" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="/assets/css/login.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
-<body>
-    <main id="main" class="content">
-<div class="login">
-<!-- Pills navs -->
-<ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" data-mdb-target="#pills-login" role="tab"
-      aria-controls="pills-login" aria-selected="true">Login</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="tab-register" data-mdb-toggle="pill" data-mdb-target="#pills-register" role="tab"
-      aria-controls="pills-register" aria-selected="false">Register</a>
-  </li>
-</ul>
-<!-- Pills navs -->
+<body class="bg-gradient-primary">
 
-<!-- Pills content -->
-<div class="tab-content">
-  <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-    <form action="/login" method="POST">
-      <div class="text-center mb-3">
-        <p>Sign in with:</p>
-      </div>
+    <div class="container">
 
-      <!-- Email input -->
-      <div data-mdb-input-init class="form-outline mb-4">
-        <input type="text" id="loginName" name="loginName" class="form-control" required />
-        <label class="form-label" for="loginName">Email or username</label>
-      </div>
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
 
-      <!-- Password input -->
-      <div data-mdb-input-init class="form-outline mb-4">
-        <input type="password" id="loginPassword" name="loginPassword" class="form-control" required />
-        <label class="form-label" for="loginPassword">Password</label>
-      </div>
+            <div class="col-xl-10 col-lg-12 col-md-9">
 
-      <!-- 2 column grid layout -->
-      <div class="row mb-4">
-        <div class="col-md-6 d-flex justify-content-center">
-          <!-- Checkbox -->
-          <div class="form-check mb-3 mb-md-0">
-            <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
-            <label class="form-check-label" for="loginCheck"> Remember me </label>
-          </div>
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    </div>
+
+                                    <form class="user" action="/login" method="POST">
+                                        <!-- Email input -->
+                                        <div class="from-group">
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="text" name="email" class="form-control form-control-user" required />
+                                                <label class="form-label" for="loginName">Email</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Password input -->
+                                        <div class="from-group">
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="password" name="password" class="form-control form-control-user" required />
+                                                <label class="form-label" for="loginPassword">Password</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Checkbox -->
+                                        <div class="from-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input class="custom-control-input" type="checkbox" value="" id="loginCheck"/>
+                                                <label class="custom-control-label" for="loginCheck"> Remember me </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Submit button -->
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-user btn-block">login</button>
+                                        
+                                        <hr>
+                                        <a href="index.html" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Login with Google
+                                        </a>
+                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                        </a>
+                                    </form>
+
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="register">Create an Account!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="col-md-6 d-flex justify-content-center">
-          <!-- Simple link -->
-          <a href="#!">Forgot password?</a>
-        </div>
-      </div>
+    </div>
+    
 
-      <!-- Submit button -->
-      <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Sign in</button>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-      <!-- Register buttons -->
-      <div class="text-center">
-        <p>Not a member? <a href="#pills-register" data-mdb-toggle="pill" data-mdb-target="#pills-register" class="nav-link">Register</a></p>
-      </div>
-    </form>
-  </div>
-  <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-    <form action="/register" method="POST">
-      <div class="text-center mb-3">
-        <p>Sign up with:</p>
-      </div>
+    <!-- Core plugin JavaScript-->
+    <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-      <!-- Name input -->
-      <div data-mdb-input-init class="form-outline mb-4">
-        <input type="text" id="registerName" name="registerName" class="form-control" required />
-        <label class="form-label" for="registerName">Name</label>
-      </div>
-
-      <!-- Username input -->
-      <div data-mdb-input-init class="form-outline mb-4">
-        <input type="text" id="registerUsername" name="registerUsername" class="form-control" required />
-        <label class="form-label" for="registerUsername">Username</label>
-      </div>
-
-      <!-- Email input -->
-      <div data-mdb-input-init class="form-outline mb-4">
-        <input type="email" id="registerEmail" name="registerEmail" class="form-control" required />
-        <label class="form-label" for="registerEmail">Email</label>
-      </div>
-
-      <!-- Password input -->
-      <div data-mdb-input-init class="form-outline mb-4">
-        <input type="password" id="registerPassword" name="registerPassword" class="form-control" required />
-        <label class="form-label" for="registerPassword">Password</label>
-      </div>
-
-      <!-- Repeat Password input -->
-      <div data-mdb-input-init class="form-outline mb-4">
-        <input type="password" id="registerRepeatPassword" name="registerRepeatPassword" class="form-control" required />
-        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
-      </div>
-
-      <!-- Checkbox -->
-      <div class="form-check d-flex justify-content-center mb-4">
-        <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
-          aria-describedby="registerCheckHelpText" required />
-        <label class="form-check-label" for="registerCheck">
-          I have read and agree to the terms
-        </label>
-      </div>
-
-      <!-- Submit button -->
-      <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-3">Sign up</button>
-    </form>
-  </div>
-</div>
-</div>
-<!-- Pills content -->
-</main>
-
-<!-- MDBootstrap JS -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/assets/js/sb-admin-2.min.js"></script>
 
 </body>
 
