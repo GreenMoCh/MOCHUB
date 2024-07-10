@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 
 const router = express.Router();
 
-// MySQL conection setup
+// MySQL connection setup
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -22,14 +22,14 @@ db.connect((err) => {
     console.log('loginController connected to the database');
 });
 
-// Login router
+// Login route
 router.post('/', [
-    body('email').isEmail().withMessage('Invalid email Adress'),
+    body('email').isEmail().withMessage('Invalid email address'),
     body('password').notEmpty().withMessage('Password is required')
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ error: errors.array() });
     }
 
     const { email, password } = req.body;
@@ -39,7 +39,7 @@ router.post('/', [
         if (err) throw err;
 
         if (results.length === 0) {
-            return res.status(400).json({ message: 'Invalid email' });
+            return res.status(400).json({ error: [{ msg: 'Invalid email' }] });
         }
 
         const user = results[0];
@@ -47,11 +47,11 @@ router.post('/', [
             if (err) throw err;
 
             if (!isMatch) {
-                return res.status(400).json({ message: 'Invalid password' });
+                return res.status(400).json({ error: [{ msg: 'Invalid password' }] });
             }
-            
+
             // Handle successful login
-            res.redirect('/dashbord');
+            res.status(200).json({ success: 'Login successful' });
         });
     });
 });

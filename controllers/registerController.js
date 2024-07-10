@@ -6,7 +6,7 @@ const mysql = require('mysql2');
 const router = express.Router();
 const saltRounds = 10;
 
-// MySQL conection setup
+// MySQL connection setup
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -27,7 +27,7 @@ db.connect((err) => {
 router.post('/', [
     body('registerName').notEmpty().withMessage('Full name is required'),
     body('registerUsername').notEmpty().withMessage('Username is required'),
-    body('registerEmail').isEmail().withMessage('Invalid email adreess'),
+    body('registerEmail').isEmail().withMessage('Invalid email address'),
     body('registerPassword').isLength({ min: 8 }).withMessage('Password must be at least 8 characters'),
     body('registerRepeatPassword').custom((value, { req }) => {
         if (value !== req.body.registerPassword) {
@@ -47,9 +47,11 @@ router.post('/', [
         if (err) throw err;
 
         const sql = 'INSERT INTO Users (FullName, Username, Email, Password) VALUES (?, ?, ?, ?)';
-        db.query(sql, [registerName, registerUsername, registerEmail, registerPassword, hash], (err, result) => {
-            if (err) throw err;
-            res.redirect('/login');
+        db.query(sql, [registerName, registerUsername, registerEmail, hash], (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: [{ msg: 'Server error' }] });
+            }
+            res.status(200).json({ success: 'Registration successful' });
         });
     });
 });
