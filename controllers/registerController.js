@@ -49,7 +49,7 @@ router.post('/', [
         const sql = 'INSERT INTO Users (FullName, Username, Email, Password) VALUES (?, ?, ?, ?)';
         db.query(sql, [registerName, registerUsername, registerEmail, hash], (err, result) => {
             if (err) {
-                return res.status(500).json({ error: [{ msg: 'Server error' }] });
+                return res.status(500).json({ error: [{ msg: 'Username or Email already used!' }] });
             }
             res.status(200).json({ success: 'Registration successful' });
         });
