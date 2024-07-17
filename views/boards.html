@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MOCHUB | Boards</title>
+    <link href="/assets/img/favicon.jpeg" rel="icon">
+    <link href="/assets/img/favicon.jpeg" rel="apple-touch-icon">
+    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        .board {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .column {
+            width: 30%;
+            background-color: #f8f9fc;
+            padding: 1em;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 1em;
+        }
+        .column h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1em;
+        }
+        .sortable {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sortable li {
+            background-color: #ffffff;
+            margin-bottom: 0.5em;
+            padding: 0.75em;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            cursor: move;
+        }
+        .ui-state-highlight {
+            height: 2.5em;
+            line-height: 1.2em;
+            background-color: #d1ecf1;
+            border: 1px dashed #0c5460;
+        }
+        .priority-low {
+            border: 2px solid green;
+            color: green;
+        }
+        .priority-medium {
+            border: 2px solid orange;
+            color: orange;
+        }
+        .priority-high {
+            border: 2px solid red;
+            color: red;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">MOCHUB</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="boards">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Boards</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="tasks">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Tasks</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="meetings">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Meetings</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <span class="badge badge-danger badge-counter"></span>
+                            </a>
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">Alerts Center</h6>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <span class="badge badge-danger badge-counter"></span>
+                            </a>
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">Message Center</h6>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                            </div>
+                        </li>
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <img class="img-profile rounded-circle" src="/assets/img/undraw_profile.svg">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Boards</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary mb-3" id="createBoardBtn">Create Board</button>
+                            <div class="board" id="boardContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; MOCHUB 2024</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createBoardModal" tabindex="-1" role="dialog" aria-labelledby="createBoardModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createBoardModalLabel">Create Board</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="createBoardForm">
+                        <div class="form-group">
+                            <label for="boardTitle">Board Title</label>
+                            <input type="text" class="form-control" id="boardTitle" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createTaskModalLabel">Create Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="createTaskForm">
+                        <div class="form-group">
+                            <label for="taskDescription">Task Description</label>
+                            <input type="text" class="form-control" id="taskDescription" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskPriority">Task Priority</label>
+                            <select class="form-control" id="taskPriority" required>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="currentBoardId">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/assets/js/sb-admin-2.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function() {
+            let boards = [];
+
+            $('#createBoardBtn').on('click', function() {
+                $('#createBoardModal').modal('show');
+            });
+
+            $('#createBoardForm').on('submit', function(e) {
+                e.preventDefault();
+                const boardTitle = $('#boardTitle').val();
+                createBoard(boardTitle);
+                $('#createBoardModal').modal('hide');
+            });
+
+            $('#createTaskForm').on('submit', function(e) {
+                e.preventDefault();
+                const boardId = $('#currentBoardId').val();
+                const taskDescription = $('#taskDescription').val();
+                const taskPriority = $('#taskPriority').val();
+                createTask(boardId, taskDescription, taskPriority);
+                $('#createTaskModal').modal('hide');
+            });
+
+            function createBoard(title) {
+                const boardId = 'board-' + new Date().getTime();
+                boards.push({ id: boardId, title: title, tasks: [] });
+                renderBoards();
+            }
+
+            function createTask(boardId, description, priority) {
+                const board = boards.find(b => b.id === boardId);
+                if (board) {
+                    board.tasks.push({ id: 'task-' + new Date().getTime(), description: description, priority: priority });
+                    renderBoards();
+                }
+            }
+
+            function renderBoards() {
+                $('#boardContainer').empty();
+                boards.forEach(board => {
+                    const boardHtml = `
+                        <div class="column" data-id="${board.id}">
+                            <h2>${board.title} <button class="btn btn-primary btn-sm float-right create-task-btn">Add Task</button></h2>
+                            <ul class="sortable">
+                                ${board.tasks.map(task => `<li class="${getPriorityClass(task.priority)}" data-id="${task.id}">${task.description}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                    $('#boardContainer').append(boardHtml);
+                });
+
+                $('.sortable').sortable({
+                    placeholder: 'ui-state-highlight',
+                    connectWith: '.sortable',
+                    update: function(event, ui) {
+                        const boardId = ui.item.closest('.column').data('id');
+                        const tasks = ui.item.closest('.sortable').find('li').map(function() {
+                            return { id: $(this).data('id'), description: $(this).text(), priority: getPriorityFromClass($(this).attr('class')) };
+                        }).get();
+                        const board = boards.find(b => b.id === boardId);
+                        if (board) {
+                            board.tasks = tasks;
+                        }
+                    }
+                }).disableSelection();
+
+                $('.create-task-btn').on('click', function() {
+                    const boardId = $(this).closest('.column').data('id');
+                    $('#currentBoardId').val(boardId);
+                    $('#createTaskModal').modal('show');
+                });
+            }
+
+            function getPriorityClass(priority) {
+                if (priority === 'low') return 'priority-low';
+                if (priority === 'medium') return 'priority-medium';
+                if (priority === 'high') return 'priority-high';
+                return '';
+            }
+
+            function getPriorityFromClass(classes) {
+                if (classes.includes('priority-low')) return 'low';
+                if (classes.includes('priority-medium')) return 'medium';
+                if (classes.includes('priority-high')) return 'high';
+                return '';
+            }
+        });
+    </script>
+</body>
+
+</html>
